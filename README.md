@@ -1,4 +1,4 @@
-# vue-hacks-app
+# chat-app
 
 ## Project setup
 ```
