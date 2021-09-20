@@ -33,7 +33,8 @@ export default {
   methods: {
     async post() {
       try {
-        const message = MessageModel.save(this.body);
+        console.log("this.body:" + this.body);
+        const message = await MessageModel.save({ body: this.body });
         this.onPost(message);
         this.body = "";
       } catch (error) {

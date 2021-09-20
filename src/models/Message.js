@@ -10,12 +10,12 @@ class Message {
 
   static async save({ body }) {
     if (!body || !body.trim()) {
-      throw Error("bodyはstring型で1文字以上の入力必須です。");
+      throw new Error("bodyはstring型で1文字以上の入力必須です。");
     }
 
     const postData = {
       body,
-      date: firebase.firestore.FiledValue.serverTimestamp(),
+      date: firebase.firestore.FieldValue.serverTimestamp()
     };
 
     const docRef = await dbMessages.add(postData);
@@ -30,7 +30,7 @@ class Message {
     return new Message({
       id,
       body: data.body,
-      date: data.date.toDate().toLocalStrin(),
+      date: data.date.toDate().toLocaleString(),
     });
   }
 }
