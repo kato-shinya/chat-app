@@ -6,7 +6,7 @@
       v-model.trim="body"
     ></textarea>
     <div class="textbox-button">
-      <Button title="投稿" :onClick="post" />
+      <Button title="投稿" :onClick="post" :clickable="canPost" />
     </div>
   </div>
 </template>
@@ -28,18 +28,20 @@ export default {
   data() {
     return {
       body: "",
+      canPost: true,
     };
   },
   methods: {
     async post() {
+      this.canPost = false;
       try {
-        console.log("this.body:" + this.body);
         const message = await MessageModel.save({ body: this.body });
         this.onPost(message);
         this.body = "";
       } catch (error) {
         alert(error.message);
       }
+      this.canPost = true;
     },
   },
 };

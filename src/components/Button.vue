@@ -1,5 +1,12 @@
 <template>
-  <div class="button" @click="onClick">{{ title }}</div>
+  <button
+    class="button"
+    @click="onClick"
+    :disabled="!clickable"
+    :class="{ disalbed: !clickable }"
+  >
+    {{ title }}
+  </button>
 </template>
 
 <script>
@@ -13,6 +20,10 @@ export default {
       type: Function,
       required: true,
     },
+    clickable: {
+      type: Boolean,
+      default: true,
+    },
   },
 };
 </script>
@@ -25,11 +36,15 @@ export default {
   color: white;
   padding: 10px;
   cursor: pointer;
+  border: 0;
 }
 .button:hover {
   background-color: rgb(182, 0, 0);
 }
 .button:active {
   background: rgb(138, 13, 13);
+}
+.disalbed {
+  opacity: 0.3;
 }
 </style>

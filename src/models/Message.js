@@ -15,7 +15,7 @@ class Message {
 
     const postData = {
       body,
-      date: firebase.firestore.FieldValue.serverTimestamp()
+      date: firebase.firestore.FieldValue.serverTimestamp(),
     };
 
     const docRef = await dbMessages.add(postData);
@@ -25,6 +25,17 @@ class Message {
 
     return model;
   }
+
+  static async fetchMessages() {
+    const collection = await dbMessages.orderBy('date').get();
+    if (collection.empty) {
+      return [];
+    }
+
+    return collection.docs.map(doc => {
+      return this.create(doc.id, doc.data())
+    });
+  }s
 
   static create(id, data) {
     return new Message({
